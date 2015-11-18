@@ -41,6 +41,6 @@ RUN chmod +x /app/run
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /opt/ghost
-PORT 2368
+EXPOSE 2368
 VOLUME ["/opt/ghost/content/data"]
 CMD ["/app/run"]
