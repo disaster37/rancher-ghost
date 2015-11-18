@@ -30,7 +30,7 @@ RUN useradd -s /bin/false -g ghost -d /opt/ghost ghost
 RUN chown -R ghost:ghost /opt/ghost
 
 # Add init script
-ADD assets/setup/supervisor-ghost.conf
+ADD assets/setup/supervisor-ghost.conf /etc/supervisor/conf.d/ghost.conf
 RUN mkdir /app
 ADD assets/init.py /app/init.py
 ADD assets/run /app/run
