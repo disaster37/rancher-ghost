@@ -1,0 +1,5 @@
+#!/bin/bash
+
+python /app/init.py
+
+exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
