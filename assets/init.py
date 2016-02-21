@@ -49,7 +49,7 @@ class ServiceRun():
         json_config['production']['database'] = {}
         json_config['production']['database']['client'] = 'sqlite3'
         json_config['production']['database']['connection'] = {}
-        json_config['production']['database']['connection']['filename'] = 'path.join(process.env.GHOST_CONTENT, \'/data/' + db + '.db\')'
+        json_config['production']['database']['connection']['filename'] = GHOST_PATH + '/data/' + db + '.db\')'
         json_config['production']['database']['debug'] = 'false'
     elif db_type == "postgresql":
         json_config['production']['database'] = {}
@@ -78,7 +78,7 @@ class ServiceRun():
 
     # Set the data dir
     json_config['production']['paths'] = {}
-    json_config['production']['paths']['contentPath'] = 'path.join(process.env.GHOST_CONTENT, \'/\')'
+    json_config['production']['paths']['contentPath'] = GHOST_PATH
 
     # Set node parameters
     json_config['production']['server'] = {}
