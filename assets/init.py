@@ -76,6 +76,10 @@ class ServiceRun():
     else:
         raise KeyError("The database type must be sqlite, mysql or postgresql")
 
+    # Set the data dir
+    json_config['production']['paths'] = {}
+    json_config['production']['paths']['contentPath'] = 'path.join(process.env.GHOST_CONTENT, \'/\')'
+
     # Set node parameters
     json_config['production']['server'] = {}
     json_config['production']['server']['host'] = '0.0.0.0'
@@ -268,6 +272,12 @@ if __name__ == '__main__':
         mail_port = '25'
 
 
+    if os.getenv('GHOST_URL') is not None:
+        ghost_url = os.getenv('GHOST_URL')
+    else:
+        ghost_url = 'http://0.0.0.0:' + port
 
 
-    service.set_config(db_type, db, db_port, db_host, db_user, db_pass, os.getenv('GHOST_URL'), port, mail_transport, mail_host, mail_ssl, mail_port, os.getenv('MAIL_USER'), os.getenv('MAIL_PASSWORD'), os.getenv('MAIL_FROM_ADDRESS'), os.getenv('MAIL_SERVICE'), os.getenv('MAIL_SES_KEY'), os.getenv('MAIL_SES_KEY_ID'))
+
+
+    service.set_config(db_type, db, db_port, db_host, db_user, db_pass, ghost_url, port, mail_transport, mail_host, mail_ssl, mail_port, os.getenv('MAIL_USER'), os.getenv('MAIL_PASSWORD'), os.getenv('MAIL_FROM_ADDRESS'), os.getenv('MAIL_SERVICE'), os.getenv('MAIL_SES_KEY'), os.getenv('MAIL_SES_KEY_ID'))
