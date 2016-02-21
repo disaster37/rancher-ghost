@@ -270,7 +270,7 @@ if __name__ == '__main__':
         mail_ssl = 'false'
 
 
-    if os.getenv('MAIL_PORT') is not None:
+    if os.getenv('MAIL_PORT') is not None and not re.match(re.escape('tcp://') + '.*',os.getenv('MAIL_PORT')):
         mail_port = os.getenv('MAIL_PORT')
     else:
         mail_port = '25'
