@@ -254,7 +254,7 @@ if __name__ == '__main__':
         port = os.getenv('GHOST_PORT')
 
 
-    if os.getenv('MAIL_HOST') is not None:
+    if os.getenv('MAIL_HOST') is None:
         mail_host = 'mail'
     else:
         mail_host = os.getenv('MAIL_HOST')
