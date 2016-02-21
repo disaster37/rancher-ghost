@@ -245,11 +245,29 @@ if __name__ == '__main__':
     else:
         port = os.getenv('GHOST_PORT')
 
-    if os.getenv('MAIL_NAME') is None:
+
+    if os.getenv('MAIL_HOST') is not None:
         mail_host = 'mail'
     else:
-        mail_host = os.getenv('MAIL_NAME')
+        mail_host = os.getenv('MAIL_HOST')
+
+    if os.getenv('MAIL_TRANSPORT') is not None:
+        mail_transport = os.getenv('MAIL_TRANSPORT')
+    else:
+        mail_transport = 'SMTP'
+
+    if os.getenv('MAIL_SSL') is not None:
+        mail_ssl = os.getenv('MAIL_SSL')
+    else:
+        mail_ssl = 'false'
+
+
+    if os.getenv('MAIL_PORT') is not None:
+        mail_port = os.getenv('MAIL_PORT')
+    else:
+        mail_port = '25'
 
 
 
-    service.set_config(db_type, db, db_port, db_host, db_user, db_pass, os.getenv('GHOST_URL'), port, os.getenv('MAIL_TRANSPORT'), mail_host, os.getenv('MAIL_SSL'), os.getenv('MAIL_PORT'), os.getenv('MAIL_USER'), os.getenv('MAIL_PASSWORD'), os.getenv('MAIL_FROM_ADDRESS'), os.getenv('MAIL_SERVICE'), os.getenv('MAIL_SES_KEY'), os.getenv('MAIL_SES_KEY_ID'))
+
+    service.set_config(db_type, db, db_port, db_host, db_user, db_pass, os.getenv('GHOST_URL'), port, mail_transport, mail_host, mail_ssl, mail_port, os.getenv('MAIL_USER'), os.getenv('MAIL_PASSWORD'), os.getenv('MAIL_FROM_ADDRESS'), os.getenv('MAIL_SERVICE'), os.getenv('MAIL_SES_KEY'), os.getenv('MAIL_SES_KEY_ID'))
