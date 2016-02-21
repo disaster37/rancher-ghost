@@ -5,11 +5,10 @@ import re
 import shutil
 import sys
 import time
-from rancher_metadata import MetadataAPI
 
 __author__ = 'Sebastien LANGOUREAUX'
 
-GHOST_PATH = '/opt/ghost'
+GHOST_PATH = '/var/lib/ghost'
 
 class ServiceRun():
 
@@ -190,42 +189,63 @@ if __name__ == '__main__':
 
     service = ServiceRun()
 
+
     if os.getenv('DB_TYPE') is None:
         db_type = 'sqlite'
     else :
         db_type = os.getenv('DB_TYPE')
 
-    db_host = os.getenv('DB_HOST')
-    if os.getenv('DB_DATABASE') is None:
-        if os.getenv('DB_ENV_DB') is None:
-            db = 'ghost'
-        else :
-            db = os.getenv('DB_ENV_DB')
-            db_host = 'db'
+
+    if os.getenv('DB_HOST') is None:
+        db_host = 'db'
     else:
+        db_host = os.getenv('DB_HOST')
+
+    if os.getenv('DB_DATABASE') is not None:
         db = os.getenv('DB_DATABASE')
-
-    if os.getenv('DB_ENV_USER') is not None:
-        db_user = os.getenv('DB_ENV_USER')
+    elif os.getenv('DB_ENV_POSTGRES_DB') is not None:
+        db = os.getenv('DB_ENV_POSTGRES_DB')
+    elif os.getenv('DB_ENV_MYSQL_DATABASE') is not None:
+        db = os.getenv('DB_ENV_MYSQL_DATABASE')
     else:
+        db = 'ghost'
+
+
+    if os.getenv('DB_USER') is not None:
         db_user = os.getenv('DB_USER')
-
-    if os.getenv('DB_ENV_PASS') is not None:
-        db_pass = os.getenv('DB_ENV_PASS')
+    elif os.getenv('DB_ENV_POSTGRES_USER') is not None:
+        db_user = os.getenv('DB_ENV_POSTGRES_USER')
+    elif os.getenv('DB_ENV_MYSQL_USER') is not None:
+        db_user = os.getenv('DB_ENV_MYSQL_USER')
     else:
+        db_user = None
+
+    if os.getenv('DB_PASS') is not None:
         db_pass = os.getenv('DB_PASS')
-
-    if os.getenv('DB_PORT_5432_TCP_PORT') is not None:
-        db_port = os.getenv('DB_PORT_5432_TCP_PORT')
+    elif os.getenv('DB_ENV_POSTGRES_PASSWORD') is not None:
+        db_pass = os.getenv('DB_ENV_POSTGRES_PASSWORD')
+    elif os.getenv('DB_ENV_MYSQL_PASSWORD') is not None:
+        db_pass = os.getenv('DB_ENV_MYSQL_PASSWORD')
     else:
+        db_pass = None
+
+    if os.getenv('DB_PORT') is not None:
         db_port = os.getenv('DB_PORT')
+    elif os.getenv('DB_TYPE') == 'postgresql':
+        db_port = '5432'
+    elif os.getenv('DB_TYPE') == 'mysql':
+        db_port = '3306'
+    else:
+        db_pass = None
+
+
 
     if os.getenv('GHOST_PORT') is None:
         port = '2368'
     else:
         port = os.getenv('GHOST_PORT')
 
-    if os.getenv('MAIL_NAME') is not None:
+    if os.getenv('MAIL_NAME') is None:
         mail_host = 'mail'
     else:
         mail_host = os.getenv('MAIL_NAME')
