@@ -21,7 +21,6 @@ RUN chmod +x /entrypoint.sh
 # CLEAN APT
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR /var/lib/ghost
 EXPOSE 2368
 ENTRYPOINT ["/entrypoint.sh"]
 VOLUME ["/var/lib/ghost"]
