@@ -234,7 +234,11 @@ if __name__ == '__main__':
         db_pass = None
 
     if os.getenv('DB_PORT') is not None:
-        db_port = os.getenv('DB_PORT')
+        temp = re.search(re.escape('tcp://') + '[^:]*:(\d+)', os.getenv('DB_PORT'))
+        if temp:
+            db_port = temp.group(1)
+        else:
+            db_port = os.getenv('DB_PORT')
     elif os.getenv('DB_TYPE') == 'postgresql':
         db_port = '5432'
     elif os.getenv('DB_TYPE') == 'mysql':
