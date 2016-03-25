@@ -209,8 +209,10 @@ if __name__ == '__main__':
         db = os.getenv('DB_DATABASE')
     elif os.getenv('DB_ENV_POSTGRES_DB') is not None:
         db = os.getenv('DB_ENV_POSTGRES_DB')
+        db_type = 'postgresql'
     elif os.getenv('DB_ENV_MYSQL_DATABASE') is not None:
         db = os.getenv('DB_ENV_MYSQL_DATABASE')
+        db_type = mysql
     else:
         db = 'ghost'
 
