@@ -10,7 +10,7 @@ RUN npm install -g pg mysql
 
 # Add python support for init script
 RUN apt-get update && \
-    apt-get install python git -y
+    apt-get install python git vim -y
 
 # Add init script
 ADD assets/init.py /app/init.py
