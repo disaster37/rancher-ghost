@@ -1,0 +1,13 @@
+ghost:
+  environment:
+    GHOST_URL: http://localhost
+  log_driver: ''
+  image: quay.io/webcenter/rancher-ghost:0.8.0-1
+  links:
+  - mysql:db
+mysql:
+  environment:
+    MYSQL_DATABASE: ghost
+    MYSQL_PASSWORD: password
+    MYSQL_USER: ghost
+  image: postgres:9.5
