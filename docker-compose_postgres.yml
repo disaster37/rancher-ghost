@@ -1,0 +1,13 @@
+ghost:
+  environment:
+    GHOST_URL: http://localhost
+  log_driver: ''
+  image: quay.io/webcenter/rancher-ghost:0.8.0-1
+  links:
+  - postgres:db
+postgres:
+  environment:
+    POSTGRES_DB: ghost
+    POSTGRES_PASSWORD: password
+    POSTGRES_USER: ghost
+  image: postgres:9.5
